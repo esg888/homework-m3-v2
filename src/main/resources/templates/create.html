@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <firstName>Create contact</firstName>
+    <firstname>Create contact</firstname>
 </head>
 <body>
 <h1>Create contact</h1>
 <form action="/contact/create" method="post">
     <div>
-        <label for="firstName">firstName</label>
-        <input type="text" id="firstName" name="firstName" required th:value="${contact.firstName}">
+        <label for="firstname">firstname</label>
+        <input type="text" id="firstname" name="firstname" required th:value="${contact.firstname}">
     </div>
     <div>
-        <label for="lastName">lastName</label>
-        <textarea id="lastName" name="lastName" required th:value="${contact.lastName}"></textarea>
+        <label for="lastname">lastname</label>
+        <textarea id="lastname" name="lastname" required th:value="${contact.lastname}"></textarea>
     </div>
     <div>
         <label for="email">email</label>

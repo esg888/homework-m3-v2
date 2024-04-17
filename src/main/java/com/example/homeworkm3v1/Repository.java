@@ -10,6 +10,8 @@ List <Contact> findAll();
 
     Optional<Contact> findById(Integer id);
 
+//    Contact findById (Integer id);
+
     Contact save(Contact contact);
 
     Contact update(Contact contact);

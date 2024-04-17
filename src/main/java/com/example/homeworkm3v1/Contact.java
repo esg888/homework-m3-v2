@@ -7,8 +7,8 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 public class Contact {
     private int id;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private String email;
     private int phone;
 
