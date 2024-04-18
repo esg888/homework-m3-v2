@@ -36,15 +36,9 @@ public class Controller {
 
     @GetMapping("/contact/edit/{id}")
     public String showEditForm(@PathVariable Integer id, Model model) {
-        Optional<Contact> contactOpt = contactService.findById(id);
-
-
-        if (contactOpt.isPresent()) {
-
-                   model.addAttribute("contact", contactOpt);
+        Contact contact = contactService.findById(id);
+                   model.addAttribute("contact", contact);
             return "edit";
-        }
-        return "redirect:/";
     }
 
     @PostMapping("/contact/edit")

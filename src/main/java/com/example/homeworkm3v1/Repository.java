@@ -8,9 +8,9 @@ public interface Repository {
 
     List <Contact> findAll();
 
-    Optional<Contact> findById(Integer id);
+//    Optional<Contact> findById(Integer id);
 
-//    Contact findById (Integer id);
+    Contact findById (Integer id);
 
     Contact save(Contact contact);
 

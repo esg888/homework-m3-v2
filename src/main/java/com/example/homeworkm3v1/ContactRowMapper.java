@@ -12,7 +12,7 @@ public class ContactRowMapper implements RowMapper<Contact> {
         contact.setFirstname(rs.getString(Contact.Fields.firstname));
         contact.setLastname(rs.getString(Contact.Fields.lastname));
         contact.setEmail(rs.getString(Contact.Fields.email));
-        contact.setPhone(rs.getInt(Contact.Fields.phone));
+        contact.setPhone(rs.getString(Contact.Fields.phone));
         return contact;
 
     }

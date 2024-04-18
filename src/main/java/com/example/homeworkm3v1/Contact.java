@@ -10,6 +10,6 @@ public class Contact {
     private String firstname;
     private String lastname;
     private String email;
-    private int phone;
+    private String phone;
 
 }

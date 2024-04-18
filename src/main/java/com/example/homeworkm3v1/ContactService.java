@@ -24,24 +24,20 @@ public class ContactService implements  Repository{
         return jdbcTemplate.query(sql, new ContactRowMapper());
     }
 
-//    @Override
-//    public Contact findById(Integer id) {
-//        String sql = "Select * from contact where id = ?";
-//        Contact contact = jdbcTemplate.queryForObject(sql, new ContactRowMapper());
-//return contact;
-//    }
+    @Override //https://javarush.com/quests/lectures/questspring.level03.lecture08
+    public Contact findById(Integer id) {
+        String sql = "SELECT id, firstname, lastname, email, phone FROM contact WHERE id = ?";
 
-    @Override
-    public Optional<Contact> findById(Integer id) {
-        String sql = "Select * from contact where id = ?";
-        Contact contact=  DataAccessUtils.singleResult(
-                jdbcTemplate.query(sql, new ArgumentPreparedStatementSetter(new Object[]{id}),
-                        new RowMapperResultSetExtractor<>(new ContactRowMapper(), 1)
-                )
-        );
-        return Optional.ofNullable(contact);
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+            Contact contactFind = new Contact();
+            contactFind.setId(rs.getInt("id"));
+            contactFind.setFirstname(rs.getString("firstname"));
+            contactFind.setLastname(rs.getString("lastname"));
+            contactFind.setEmail(rs.getString("email"));
+            contactFind.setPhone(rs.getString("phone"));
+            return contactFind;
+        });
     }
-
 
 
     @Override
@@ -56,31 +52,23 @@ public class ContactService implements  Repository{
         }
 
         contact.setId(newId);
-        String sql = "insert into contact (id, firstname, lastname, email, phone) values (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, contact.getId(), contact.getFirstname(), contact.getLastname(), contact.getEmail(), contact.getPhone());
+        String sqlSave = "insert into contact (id, firstname, lastname, email, phone) values (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sqlSave, contact.getId(), contact.getFirstname(), contact.getLastname(), contact.getEmail(), contact.getPhone());
         return contact;
     }
 
     @Override
     public Contact update(Contact contact) {
+        String sqlUp = "update contact set firstname = ?, lastname = ?, email = ?, phone = ? where id = ?";
+        jdbcTemplate.update(sqlUp, contact.getId(), contact.getFirstname(), contact.getLastname(), contact.getEmail(), contact.getPhone());
 
-        Contact existedContact=findById(contact.getId()).orElse(null);
-//        Optional<Contact>= findById(contact.getId()).orElse(null);
-
-        if (existedContact != null) {
-            System.out.println("Id = " + existedContact.getId());
-            String sql = "update contact set firstname = ?, lastname = ?, email = ?, phone = ? where id = ?";
-            jdbcTemplate.update(sql, contact.getFirstname(), contact.getLastname(), contact.getEmail(), contact.getPhone()
-                    , contact.getId()
-            );
             return contact;
-        }
-        throw new ContactNotFoundException("contact for update not found! ID: " + contact.getId());
+
     }
 
     @Override
     public void deleteById(Integer id) {
-        String sql = "delete from contact where id = ?";
-        jdbcTemplate.update(sql, id);
+        String sqlDel = "delete from contact where id = ?";
+        jdbcTemplate.update(sqlDel, id);
     }
 }
