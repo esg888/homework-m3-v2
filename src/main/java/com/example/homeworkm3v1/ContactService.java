@@ -57,10 +57,10 @@ public class ContactService implements  Repository{
         return contact;
     }
 
-    @Override
+    @Override // то, по чему ищем - сзади!contact.getId - jdbcTemplate.update
     public Contact update(Contact contact) {
         String sqlUp = "update contact set firstname = ?, lastname = ?, email = ?, phone = ? where id = ?";
-        jdbcTemplate.update(sqlUp, contact.getId(), contact.getFirstname(), contact.getLastname(), contact.getEmail(), contact.getPhone());
+        jdbcTemplate.update(sqlUp,  contact.getFirstname(), contact.getLastname(), contact.getEmail(), contact.getPhone(), contact.getId());
 
             return contact;
 
