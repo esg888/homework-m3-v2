@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class Controller {
 
-private  final ContactService contactService;
+    private  final ContactService contactService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -36,9 +36,12 @@ private  final ContactService contactService;
 
     @GetMapping("/contact/edit/{id}")
     public String showEditForm(@PathVariable Integer id, Model model) {
-Optional<Contact> contact = contactService.findById(id);
-        if (contact.isPresent()) {
-            model.addAttribute("contact", contact);
+        Optional<Contact> contactOpt = contactService.findById(id);
+
+
+        if (contactOpt.isPresent()) {
+
+                   model.addAttribute("contact", contactOpt);
             return "edit";
         }
         return "redirect:/";

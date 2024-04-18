@@ -6,7 +6,7 @@ import java.util.Optional;
 @org.springframework.stereotype.Repository
 public interface Repository {
 
-List <Contact> findAll();
+    List <Contact> findAll();
 
     Optional<Contact> findById(Integer id);
 

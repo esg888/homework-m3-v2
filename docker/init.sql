@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS contacts_schema.contact
     lastname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone BIGINT NOT NULL
-    )
+)

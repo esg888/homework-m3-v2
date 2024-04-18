@@ -5,7 +5,6 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.ArgumentPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +14,7 @@ import java.util.Optional;
 @Slf4j
 
 public class ContactService implements  Repository{
+
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -31,7 +31,7 @@ public class ContactService implements  Repository{
 //return contact;
 //    }
 
-@Override
+    @Override
     public Optional<Contact> findById(Integer id) {
         String sql = "Select * from contact where id = ?";
         Contact contact=  DataAccessUtils.singleResult(
@@ -48,7 +48,7 @@ public class ContactService implements  Repository{
     public Contact save(Contact contact) {
         String sqlForId="select max(id) from contact";
         Integer maxId = jdbcTemplate.queryForObject(sqlForId, Integer.class);
-int newId;
+        int newId;
         if (maxId == null) {
             newId = 1;
         } else {
@@ -63,7 +63,7 @@ int newId;
 
     @Override
     public Contact update(Contact contact) {
-        
+
         Contact existedContact=findById(contact.getId()).orElse(null);
 //        Optional<Contact>= findById(contact.getId()).orElse(null);
 
@@ -75,7 +75,7 @@ int newId;
             );
             return contact;
         }
-          throw new ContactNotFoundException("contact for update not found! ID: " + contact.getId());
+        throw new ContactNotFoundException("contact for update not found! ID: " + contact.getId());
     }
 
     @Override
@@ -83,7 +83,4 @@ int newId;
         String sql = "delete from contact where id = ?";
         jdbcTemplate.update(sql, id);
     }
-
-
-
 }
